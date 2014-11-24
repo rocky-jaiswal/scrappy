@@ -1,1 +1,1 @@
-gom build && ./scrappy
+gom install && gom build && ./scrappy
