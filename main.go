@@ -14,12 +14,8 @@ func main(){
         fmt.Println("===================")
         ct.ChangeColor(ct.Blue, true, ct.White, false)
 
-        resp, err := http.Get("http://rockyj.in")
-        if err != nil {
-                panic(err)
-        }
+        resp := getResponse()
         defer resp.Body.Close()
-
         //for debugging
         // body, _ := ioutil.ReadAll(resp.Body)
         // fmt.Println(string(body))
@@ -29,7 +25,19 @@ func main(){
                 panic(err)
         }
 
-        doc.Find(".summary h3 a").Each(func(i int, s *goquery.Selection) {
+        find(doc, ".summary h3 a")
+}
+
+func getResponse() *http.Response {
+        resp, err := http.Get("http://rockyj.in")
+        if err != nil {
+                panic(err)
+        }
+        return resp
+}
+
+func find(doc *goquery.Document, selector string) {
+        doc.Find(selector).Each(func(i int, s *goquery.Selection) {
                 fmt.Printf("%d: %s\n", i, s.Text())
         })
 }
