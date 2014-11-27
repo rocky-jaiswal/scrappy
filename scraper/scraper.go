@@ -1,4 +1,4 @@
-package main
+package scrappy
 
 import(
         "fmt"

@@ -2,7 +2,8 @@ package main
 
 import(
         "fmt"
-        "github.com/daviddengcn/go-colortext"
+       ct "github.com/daviddengcn/go-colortext"
+       scraper  "github.com/rocky-jaiswal/scrappy/scraper"
 )
 
 func main(){
@@ -11,7 +12,7 @@ func main(){
         fmt.Println("===================")
         ct.ChangeColor(ct.Blue, true, ct.White, false)
 
-        scraper := NewScraper("http://rockyj.in")
+        scraper := scraper.NewScraper("http://rockyj.in")
         doc := scraper.GetDocument()
         scraper.Find(doc, ".summary h3 a")
 }
