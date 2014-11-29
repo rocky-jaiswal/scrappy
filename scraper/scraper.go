@@ -8,14 +8,23 @@ import(
 
 type Scraper struct {
         url string
+        document *goquery.Document
 }
 
 func NewScraper(url string) *Scraper {
-        s := Scraper{url}
-        return &s
+        s := new(Scraper)
+        s.url = url
+        s.document = s.getDocument()
+        return s
 }
 
-func (s *Scraper) GetDocument() *goquery.Document {
+func (s *Scraper) Find(selector string) {
+        s.document.Find(selector).Each(func(i int, s *goquery.Selection) {
+                fmt.Printf("%s\n", s.Text())
+        })
+}
+
+func (s *Scraper) getDocument() *goquery.Document {
         resp := s.getResponse()
         defer resp.Body.Close()
         doc, err := goquery.NewDocumentFromResponse(resp)
@@ -23,12 +32,6 @@ func (s *Scraper) GetDocument() *goquery.Document {
                 panic(err)
         }
         return doc
-}
-
-func (s *Scraper) Find(doc *goquery.Document, selector string) {
-        doc.Find(selector).Each(func(i int, s *goquery.Selection) {
-                fmt.Printf("%d: %s\n", i, s.Text())
-        })
 }
 
 func (s *Scraper) getResponse() *http.Response {
