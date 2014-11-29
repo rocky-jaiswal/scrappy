@@ -17,7 +17,14 @@ func main(){
         //scraper.Find(".summary h3 a")
 
         //bollywood movies
-        scraper := scraper.NewScraper("http://en.wikipedia.org/wiki/List_of_Bollywood_films_of_2014")
-        //doc := scraper.GetDocument()
-        scraper.Find("table.wikitable i a")
+        ch := make(chan []string)
+        go scrape("http://en.wikipedia.org/wiki/List_of_Bollywood_films_of_2014", "table.wikitable i a", ch)
+        selection := <- ch
+        fmt.Println(selection)
+}
+
+func scrape(url string, selector string, ch chan []string) {
+        scraper := scraper.NewScraper(url)
+        selection := scraper.Find(selector)
+        ch <- selection
 }

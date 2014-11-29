@@ -1,7 +1,6 @@
 package scrappy
 
 import(
-        "fmt"
         "net/http"
         "github.com/PuerkitoBio/goquery"
 )
@@ -18,10 +17,12 @@ func NewScraper(url string) *Scraper {
         return s
 }
 
-func (s *Scraper) Find(selector string) {
+func (s *Scraper) Find(selector string) []string{
+        selection := make([]string, 10)
         s.document.Find(selector).Each(func(i int, s *goquery.Selection) {
-                fmt.Printf("%s\n", s.Text())
+                selection = append(selection, s.Text())
         })
+        return selection
 }
 
 func (s *Scraper) getDocument() *goquery.Document {
