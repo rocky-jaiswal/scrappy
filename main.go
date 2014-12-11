@@ -3,7 +3,7 @@ package main
 import(
         "fmt"
        ct "github.com/daviddengcn/go-colortext"
-       scraper  "github.com/rocky-jaiswal/scrappy/scraper"
+       scraper  "./scraper"
 )
 
 func main(){
