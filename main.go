@@ -7,15 +7,8 @@ import (
 )
 
 func main() {
-	ct.ChangeColor(ct.Magenta, true, ct.White, false)
-	fmt.Println("Welcome to Scrappy!")
-	fmt.Println("===================")
+	printWelcome()
 
-	//for my personal site
-	//scraper := scraper.NewScraper("http://rockyj.in")
-	//scraper.Find(".summary h3 a")
-
-	//bollywood movies
 	years := []string{"2009", "2010", "2011", "2012", "2014"}
 	for _, year := range years {
 		ch := make(chan []string)
@@ -23,6 +16,12 @@ func main() {
 		selection := <-ch
 		printMovies(selection)
 	}
+}
+
+func printWelcome() {
+	ct.ChangeColor(ct.Magenta, true, ct.White, true)
+	fmt.Println("Welcome to Scrappy!")
+	fmt.Println("===================")
 }
 
 func scrape(url string, selector string, ch chan []string) {
@@ -36,4 +35,5 @@ func printMovies(movies []string) {
 	for _, movie := range movies {
 		fmt.Println(movie)
 	}
+	fmt.Println("___________________")
 }
