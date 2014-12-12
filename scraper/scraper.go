@@ -1,4 +1,4 @@
-package scrappy
+package scraper
 
 import (
 	"github.com/PuerkitoBio/goquery"
